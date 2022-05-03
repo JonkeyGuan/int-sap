@@ -20,11 +20,6 @@ management:
     health:
       enabled: true
 
-springdoc:
-  swagger-ui:
-    path: /swagger
-    url: /api/api-doc
-
 sap:
   username: SUBC_POD
   password: subc@POD.022
