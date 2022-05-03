@@ -23,13 +23,13 @@ public class MapSapToLocalProdessor {
 
 		Item_out item_out = kpzt_sap.getIT_OUT().getItem().get(0);
 		KPZT kpzt = KPZT.builder()
-				.ev_code(kpzt_sap.getEV_CODE())
-				.ev_message(kpzt_sap.getEV_MESSAGE())
-				.zvbeln(item_out.getZVBELN())
-				.zwerks(item_out.getZWERKS())
-				.zfkstk(item_out.getZFKSTK())
-				.zerdat(item_out.getZERDAT())
-				.zerzet(item_out.getZERZET())
+				.fanHuiMa(kpzt_sap.getEV_CODE())
+				.fanHuiXinXi(kpzt_sap.getEV_MESSAGE())
+				.jiaoHuoDan(item_out.getZVBELN())
+				.gongChang(item_out.getZWERKS())
+				.kaiPiaoZhuangTai(item_out.getZFKSTK())
+				.gengXinRiQi(item_out.getZERDAT())
+				.gengXinShiJian(item_out.getZERZET())
 				.build();
 
 		ex.getIn().setBody(kpzt, KPZT.class);

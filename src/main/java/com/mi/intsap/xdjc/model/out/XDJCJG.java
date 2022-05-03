@@ -17,14 +17,14 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class XDJCJG {
 
-    private int ev_code;
-    private String ev_message;
-    private String zvbeln;
-    private String zwerks;
-    private String zxdjcjg;
-    private int zxdce;
-    private String zwaerk;
-    private String zerdat;
-    private String zerzet;
+    private int fanHuiMa;
+    private String fanHuiXinXi;
+    private String jiaoHuoDan;
+    private String gongChang;
+    private String xinDaiJianChaJieGuo;
+    private int xinDaiChaoEr;
+    private String huoBi;
+    private String gengXinRiQi;
+    private String gengXinShiJian;
 
 }

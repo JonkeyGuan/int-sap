@@ -17,9 +17,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class JHDBH {
 
-    private String zvbeln;
-    private String zwerks;
-    private String zerdat;
-    private String zerzet;
+    private String jiaoHuoDan;
+    private String gongChang;
+    private String gengXinRiQi;
+    private String gengXinShiJian;
     
 }

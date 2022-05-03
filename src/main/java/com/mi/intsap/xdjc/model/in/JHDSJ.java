@@ -17,19 +17,19 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class JHDSJ {
 
-    private String zvbeln;
-    private String zkunag;
-    private int zddyfp;
-    private int zposnr;
-    private String zwerks;
-    private String zmatnr;
-    private int zlfimm;
-    private String zmeins;
-    private int znetwr;
-    private int zmwsbp;
-    private String zwaerk;
-    private String zwhbs;
-    private String zerdat;
-    private String zerzet;
+    private String jiaoHuoDan;
+    private String shouDaFang;
+    private int dingDanYuFuBaiFenBi;
+    private int hangXiangMu;
+    private String gongChang;
+    private String wuLiaoBianMa;
+    private int jiaoHuoShuLiang;
+    private String jiBenJiLiangDanWei;
+    private int xiaoShouEr;
+    private int xiaoXiangSuiEr;
+    private String huoBi;
+    private String weiHuBiaoShi;
+    private String gengXinRiQi;
+    private String gengXinShiJian;
     
 }

@@ -22,11 +22,11 @@ public class MapLocalToSapProcessor {
 		FHXX fhxx = ex.getIn().getBody(FHXX.class);
 
 		Item_in item_in = Item_in.builder()
-				.ZVBELN(fhxx.getZvbeln())
-				.ZWERKS(fhxx.getZwerks())
-				.ZWBSTK(fhxx.getZwbstk())
-				.ZERDAT(fhxx.getZerdat())
-				.ZERZET(fhxx.getZerzet())
+				.ZVBELN(fhxx.getJiaoHuoDan())
+				.ZWERKS(fhxx.getGongChang())
+				.ZWBSTK(fhxx.getJiaoHuoShiFouYiWangCheng())
+				.ZERDAT(fhxx.getGengXinRiQi())
+				.ZERZET(fhxx.getGengXinShiJian())
 				.build();
 		IT_IN it_in = IT_IN.builder().item(List.of(item_in)).build();
 		FHXX_SAP fhxx_sap = FHXX_SAP.builder().IT_IN(it_in).build();

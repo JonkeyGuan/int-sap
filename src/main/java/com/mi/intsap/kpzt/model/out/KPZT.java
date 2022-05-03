@@ -17,12 +17,12 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class KPZT {
 
-    private int ev_code;
-    private String ev_message;
-    private String zvbeln;
-    private String zwerks;
-    private String zfkstk;
-    private String zerdat;
-    private String zerzet;
+    private int fanHuiMa;
+    private String fanHuiXinXi;
+    private String jiaoHuoDan;
+    private String gongChang;
+    private String kaiPiaoZhuangTai;
+    private String gengXinRiQi;
+    private String gengXinShiJian;
 
 }

@@ -23,15 +23,15 @@ public class MapSapToLocalProdessor {
 
 		Item_out item_out = xdjcjg_sap.getIT_OUT().getItem().get(0);
 		XDJCJG xdjcjg = XDJCJG.builder()
-				.ev_code(xdjcjg_sap.getEV_CODE())
-				.ev_message(xdjcjg_sap.getEV_MESSAGE())
-				.zvbeln(item_out.getZVBELN())
-				.zwerks(item_out.getZWERKS())
-				.zxdjcjg(item_out.getZXDJCJG())
-				.zxdce(item_out.getZXDCE())
-				.zwaerk(item_out.getZWAERK())
-				.zerdat(item_out.getZERDAT())
-				.zerzet(item_out.getZERZET())
+				.fanHuiMa(xdjcjg_sap.getEV_CODE())
+				.fanHuiXinXi(xdjcjg_sap.getEV_MESSAGE())
+				.jiaoHuoDan(item_out.getZVBELN())
+				.gongChang(item_out.getZWERKS())
+				.xinDaiJianChaJieGuo(item_out.getZXDJCJG())
+				.xinDaiChaoEr(item_out.getZXDCE())
+				.huoBi(item_out.getZWAERK())
+				.gengXinRiQi(item_out.getZERDAT())
+				.gengXinShiJian(item_out.getZERZET())
 				.build();
 
 		ex.getIn().setBody(xdjcjg, XDJCJG.class);

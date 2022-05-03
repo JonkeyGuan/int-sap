@@ -22,10 +22,10 @@ public class MapLocalToSapProcessor {
 		JHDBH jhdbh = ex.getIn().getBody(JHDBH.class);
 
 		Item_in item_in = Item_in.builder()
-				.ZVBELN(jhdbh.getZvbeln())
-				.ZWERKS(jhdbh.getZwerks())
-				.ZERDAT(jhdbh.getZerdat())
-				.ZERZET(jhdbh.getZerzet())
+				.ZVBELN(jhdbh.getJiaoHuoDan())
+				.ZWERKS(jhdbh.getGongChang())
+				.ZERDAT(jhdbh.getGengXinRiQi())
+				.ZERZET(jhdbh.getGengXinShiJian())
 				.build();
 		IT_IN it_in = IT_IN.builder().item(List.of(item_in)).build();
 		JHDBH_SAP jhdbh_sap = JHDBH_SAP.builder().IT_IN(it_in).build();

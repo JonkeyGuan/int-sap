@@ -17,10 +17,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class FHXX {
 
-    private String zvbeln;
-    private String zwerks;
-    private String zwbstk;
-    private String zerdat;
-    private String zerzet;
+    private String jiaoHuoDan;
+    private String gongChang;
+    private String jiaoHuoShiFouYiWangCheng;
+    private String gengXinRiQi;
+    private String gengXinShiJian;
     
 }
