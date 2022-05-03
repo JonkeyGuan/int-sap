@@ -1,0 +1,6 @@
+sap:
+  username: SUBC_POD
+  password: subc@POD.022
+  xdjc.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1002
+  cwjz.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1003
+  kpzt.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1004
