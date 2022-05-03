@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="context-cwjz" xmlns="http://camel.apache.org/schema/spring">
+
+        <dataFormats>
+            <json id="fhxx-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.cwjz.model.in.FHXX_SAP"/>
+            <json id="gzzt-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.cwjz.model.out.GZZT_SAP"/>
+        </dataFormats>
+
+        <rest bindingMode="json" enableCORS="true" id="rest-cwjz">
+            <post id="xdjc" uri="/cwjz" type="com.mi.intsap.cwjz.model.in.FHXX" outType="com.mi.intsap.cwjz.model.out.GZZT" consumes="application/json" produces="application/json">
+                <to uri="direct:cwjz" />
+            </post>
+        </rest>
+
+        <route id="route-cwjz">
+            <from id="from-cwjz" uri="direct:cwjz" />
+            <log id="cwjz-log-request" loggingLevel="INFO" message="Request: ${body}"/>
+            <bean id="cwjz-mapLocalToSapProcessor" ref="cwjzMapLocalToSapProcessor" />
+            <bean id="cwjz-outboundAuthProcessor" ref="outboundAuthProcessor" />
+            <bean id="cwjz-outboundUriProcessor" ref="cwjzOutboundUriProcessor" />
+            <marshal ref="fhxx-sap"/>
+            <toD id="cwjz-https-to" uri="https4://dummy" />
+            <unmarshal ref="gzzt-sap"/>
+            <bean id="cwjz-mapSapToLocalProdessor" ref="cwjzMapSapToLocalProdessor" />
+            <log id="cwjz-log-response" loggingLevel="INFO" message="Response: ${body}"/>
+        </route>
+
+    </camelContext>
+</beans>

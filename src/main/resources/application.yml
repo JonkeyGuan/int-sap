@@ -1,0 +1,33 @@
+spring:
+  main:
+    allowBeanDefinitionOverriding: true
+
+camel:
+  springboot:
+    name: int-sap
+  component:
+    servlet:
+      mapping:
+        contextPath: /api/*
+
+management:
+  server:
+    port: 8081
+
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+    url: /api/api-doc
+
+sap:
+  username: SUBC_POD
+  password: subc@POD.022
+  xdjc.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1002
+  cwjz.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1003
+  kpzt.url: https://podev.mindray.com/RESTAdapter/SCPF_ZFIFM1004

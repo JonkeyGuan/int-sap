@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="context-kpzt" xmlns="http://camel.apache.org/schema/spring">
+
+        <dataFormats>
+            <json id="jhdbh-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.kpzt.model.in.JHDBH_SAP"/>
+            <json id="kpzt-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.kpzt.model.out.KPZT_SAP"/>
+        </dataFormats>
+
+        <rest bindingMode="json" enableCORS="true" id="rest-kpzt">
+            <post id="kpzt" uri="/kpzt" type="com.mi.intsap.kpzt.model.in.JHDBH" outType="com.mi.intsap.kpzt.model.out.KPZT" consumes="application/json" produces="application/json">
+                <to uri="direct:kpzt" />
+            </post>
+        </rest>
+
+        <route id="route-kpzt">
+            <from id="from-kpzt" uri="direct:kpzt" />
+            <log id="kpzt-log-request" loggingLevel="INFO" message="Request: ${body}"/>
+            <bean id="kpzt-mapLocalToSapProcessor" ref="kpztMapLocalToSapProcessor" />
+            <bean id="kpzt-outboundAuthProcessor" ref="outboundAuthProcessor" />
+            <bean id="kpzt-outboundUriProcessor" ref="kpztOutboundUriProcessor" />
+            <marshal ref="jhdbh-sap"/>
+            <toD id="kpzt-https-to" uri="https4://dummy" />
+            <unmarshal ref="kpzt-sap"/>
+            <bean id="kpzt-mapSapToLocalProdessor" ref="kpztMapSapToLocalProdessor" />
+            <log id="kpzt-log-response" loggingLevel="INFO" message="Response: ${body}"/>
+        </route>
+
+    </camelContext>
+</beans>
