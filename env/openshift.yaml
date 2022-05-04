@@ -1,0 +1,66 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: int-sap
+spec:
+  to:
+    kind: Service
+    name: int-sap
+  port:
+    targetPort: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: int-sap
+  labels:
+    app: int-sap
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: int-sap
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: int-sap
+  labels:
+    app: int-sap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: int-sap
+  template:
+    metadata:
+      labels:
+        app: int-sap
+    spec:
+      containers:
+        - name: app
+          image: image-registry.openshift-image-registry.svc:5000/fuse/int-sap
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: dev
+          - name: TZ
+            value: "Asia/Shanghai"
+          - name: LANG
+            value: en_US.UTF-8
+          - name: JAVA_OPTS
+            value: "-Dfile.encoding=UTF8"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+              scheme: HTTP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8081
+              scheme: HTTP
+

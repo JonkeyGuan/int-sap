@@ -1,9 +1,7 @@
 spring:
   profiles:
-    active: dev
-  main:
-    allowBeanDefinitionOverriding: true
-
+    active: local
+  
 camel:
   springboot:
     name: int-sap

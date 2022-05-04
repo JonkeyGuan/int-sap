@@ -1,0 +1,6 @@
+sap:
+  username: dummy
+  password: dummy
+  xdjc.url: http://localhost:8090/api/xdjc
+  cwjz.url: http://localhost:8090/api/cwjz
+  kpzt.url: http://localhost:8090/api/kpzt
