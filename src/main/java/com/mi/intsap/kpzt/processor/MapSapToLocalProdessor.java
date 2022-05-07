@@ -21,16 +21,24 @@ public class MapSapToLocalProdessor {
 
 		log.info("Received: {}", kpzt_sap);
 
-		Item_out item_out = kpzt_sap.getIT_OUT().getItem().get(0);
-		KPZT kpzt = KPZT.builder()
-				.fanHuiMa(kpzt_sap.getEV_CODE())
-				.fanHuiXinXi(kpzt_sap.getEV_MESSAGE())
-				.jiaoHuoDan(item_out.getZVBELN())
-				.gongChang(item_out.getZWERKS())
-				.kaiPiaoZhuangTai(item_out.getZFKSTK())
-				.gengXinRiQi(item_out.getZERDAT())
-				.gengXinShiJian(item_out.getZERZET())
-				.build();
+		KPZT kpzt;
+		if (kpzt_sap.getIT_OUT().getItem() != null) {
+			Item_out item_out = kpzt_sap.getIT_OUT().getItem().get(0);
+			kpzt = KPZT.builder()
+					.fanHuiMa(kpzt_sap.getEV_CODE())
+					.fanHuiXinXi(kpzt_sap.getEV_MESSAGE())
+					.jiaoHuoDan(item_out.getZVBELN())
+					.gongChang(item_out.getZWERKS())
+					.kaiPiaoZhuangTai(item_out.getZFKSTK())
+					.gengXinRiQi(item_out.getZERDAT())
+					.gengXinShiJian(item_out.getZERZET())
+					.build();
+		} else {
+			kpzt = KPZT.builder()
+					.fanHuiMa(kpzt_sap.getEV_CODE())
+					.fanHuiXinXi(kpzt_sap.getEV_MESSAGE())
+					.build();
+		}
 
 		ex.getIn().setBody(kpzt, KPZT.class);
 

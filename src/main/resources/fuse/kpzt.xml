@@ -3,7 +3,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <camelContext id="context-kpzt" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="context-kpzt" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
 
         <dataFormats>
             <json id="jhdbh-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.kpzt.model.in.JHDBH_SAP"/>
@@ -18,15 +18,19 @@
 
         <route id="route-kpzt">
             <from id="from-kpzt" uri="direct:kpzt" />
-            <log id="kpzt-log-request" loggingLevel="INFO" message="Request: ${body}"/>
+            <log id="kpzt-log-request" loggingLevel="INFO" message="Inbound: ${body}"/>
             <bean id="kpzt-mapLocalToSapProcessor" ref="kpztMapLocalToSapProcessor" />
             <bean id="kpzt-outboundAuthProcessor" ref="outboundAuthProcessor" />
             <bean id="kpzt-outboundUriProcessor" ref="kpztOutboundUriProcessor" />
-            <marshal ref="jhdbh-sap"/>
+            <marshal id="kpzt-marshal" ref="jhdbh-sap"/>
+            <log id="kpzt-log-sap-request" loggingLevel="INFO" message="Sap request: ${body}"/>
             <toD id="kpzt-https-to" uri="https4://dummy" />
-            <unmarshal ref="kpzt-sap"/>
+            <log id="kpzt-log-sap-reply" loggingLevel="INFO" message="Sap response: ${body}"/>
+            <convertBodyTo id="kpzt-convert-body-to-string" type="String"/>
+            <bean id="kpzt-outboundFormatAdjustProcessor" ref="outboundFormatAdjustProcessor" />
+            <unmarshal id="kpzt-unmarshal" ref="kpzt-sap"/>
             <bean id="kpzt-mapSapToLocalProdessor" ref="kpztMapSapToLocalProdessor" />
-            <log id="kpzt-log-response" loggingLevel="INFO" message="Response: ${body}"/>
+            <log id="kpzt-log-response" loggingLevel="INFO" message="Outbound: ${body}"/>
         </route>
 
     </camelContext>

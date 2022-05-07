@@ -21,19 +21,27 @@ public class MapSapToLocalProdessor {
 
 		log.info("Received: {}", gzzt_sap);
 
-		Item_out item_out = gzzt_sap.getIT_OUT().getItem().get(0);
-		GZZT gzzt = GZZT.builder()
-				.fanHuiMa(gzzt_sap.getEV_CODE())
-				.fanHuiXinXi(gzzt_sap.getEV_MESSAGE())
-				.jiaoHuoDan(item_out.getZVBELN())
-				.gongChang(item_out.getZWERKS())
-				.jiaoHuoShiFouYiWangCheng(item_out.getZWBSTK())
-				.gengXinRiQi(item_out.getZERDAT())
-				.gengXinShiJian(item_out.getZERZET())
-				.gongSiDaiMa(item_out.getBUKRS())
-				.piaoJuHao(item_out.getBELNR())
-				.caiNian(item_out.getGJAHR())
-				.build();
+		GZZT gzzt;
+		if (gzzt_sap.getIT_OUT().getItem() != null) {
+			Item_out item_out = gzzt_sap.getIT_OUT().getItem().get(0);
+			gzzt = GZZT.builder()
+					.fanHuiMa(gzzt_sap.getEV_CODE())
+					.fanHuiXinXi(gzzt_sap.getEV_MESSAGE())
+					.jiaoHuoDan(item_out.getZVBELN())
+					.gongChang(item_out.getZWERKS())
+					.jiaoHuoShiFouYiWangCheng(item_out.getZWBSTK())
+					.gengXinRiQi(item_out.getZERDAT())
+					.gengXinShiJian(item_out.getZERZET())
+					.gongSiDaiMa(item_out.getBUKRS())
+					.piaoJuHao(item_out.getBELNR())
+					.caiNian(item_out.getGJAHR())
+					.build();
+		} else {
+			gzzt = GZZT.builder()
+					.fanHuiMa(gzzt_sap.getEV_CODE())
+					.fanHuiXinXi(gzzt_sap.getEV_MESSAGE())
+					.build();
+		}
 
 		ex.getIn().setBody(gzzt, GZZT.class);
 

@@ -21,18 +21,26 @@ public class MapSapToLocalProdessor {
 
 		log.info("Received: {}", xdjcjg_sap);
 
-		Item_out item_out = xdjcjg_sap.getIT_OUT().getItem().get(0);
-		XDJCJG xdjcjg = XDJCJG.builder()
-				.fanHuiMa(xdjcjg_sap.getEV_CODE())
-				.fanHuiXinXi(xdjcjg_sap.getEV_MESSAGE())
-				.jiaoHuoDan(item_out.getZVBELN())
-				.gongChang(item_out.getZWERKS())
-				.xinDaiJianChaJieGuo(item_out.getZXDJCJG())
-				.xinDaiChaoEr(item_out.getZXDCE())
-				.huoBi(item_out.getZWAERK())
-				.gengXinRiQi(item_out.getZERDAT())
-				.gengXinShiJian(item_out.getZERZET())
-				.build();
+		XDJCJG xdjcjg;
+		if (xdjcjg_sap.getIT_OUT().getItem() != null) {
+			Item_out item_out = xdjcjg_sap.getIT_OUT().getItem().get(0);
+			xdjcjg = XDJCJG.builder()
+					.fanHuiMa(xdjcjg_sap.getEV_CODE())
+					.fanHuiXinXi(xdjcjg_sap.getEV_MESSAGE())
+					.jiaoHuoDan(item_out.getZVBELN())
+					.gongChang(item_out.getZWERKS())
+					.xinDaiJianChaJieGuo(item_out.getZXDJCJG())
+					.xinDaiChaoEr(item_out.getZXDCE())
+					.huoBi(item_out.getZWAERK())
+					.gengXinRiQi(item_out.getZERDAT())
+					.gengXinShiJian(item_out.getZERZET())
+					.build();
+		} else {
+			xdjcjg = XDJCJG.builder()
+					.fanHuiMa(xdjcjg_sap.getEV_CODE())
+					.fanHuiXinXi(xdjcjg_sap.getEV_MESSAGE())
+					.build();
+		}
 
 		ex.getIn().setBody(xdjcjg, XDJCJG.class);
 

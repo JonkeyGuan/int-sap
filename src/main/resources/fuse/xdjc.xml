@@ -3,7 +3,7 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <camelContext id="context-xdjc" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="context-xdjc" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
 
         <dataFormats>
             <json id="jhdsj-sap" library="Jackson" unmarshalTypeName="com.mi.intsap.xdjc.model.in.JHDSJ_SAP"/>
@@ -12,21 +12,25 @@
 
         <rest bindingMode="json" enableCORS="true" id="rest-xdjc">
             <post id="xdjc" uri="/xdjc" type="com.mi.intsap.xdjc.model.in.JHDSJ" outType="com.mi.intsap.xdjc.model.out.XDJCJG" consumes="application/json" produces="application/json">
-                <to uri="direct:xdjc" />
+                <to id="xdjc-to-route" uri="direct:xdjc" />
             </post>
         </rest>
 
         <route id="route-xdjc">
             <from id="from-xdjc" uri="direct:xdjc" />
-            <log id="xdjc-log-request" loggingLevel="INFO" message="Request: ${body}"/>
+            <log id="xdjc-log-request" loggingLevel="INFO" message="Inbound: ${body}"/>
             <bean id="xdjc-mapLocalToSapProcessor" ref="xdjcMapLocalToSapProcessor" />
             <bean id="xdjc-outboundAuthProcessor" ref="outboundAuthProcessor" />
             <bean id="xdjc-outboundUriProcessor" ref="xdjcOutboundUriProcessor" />
-            <marshal ref="jhdsj-sap"/>
+            <marshal id="xdjc-marshal" ref="jhdsj-sap"/>
+            <log id="xdjc-log-sap-request" loggingLevel="INFO" message="Sap request: ${body}"/>
             <toD id="xdjc-https-to" uri="https4://dummy" />
-            <unmarshal ref="xdjcjg-sap"/>
+            <log id="xdjc-log-sap-reply" loggingLevel="INFO" message="Sap response: ${body}"/>
+            <convertBodyTo id="xdjc-convert-body-to-string" type="String"/>
+            <bean id="xdjc-outboundFormatAdjustProcessor" ref="outboundFormatAdjustProcessor" />
+            <unmarshal id="xdjc-unmarshal" ref="xdjcjg-sap"/>
             <bean id="xdjc-mapSapToLocalProdessor" ref="xdjcMapSapToLocalProdessor" />
-            <log id="xdjc-log-response" loggingLevel="INFO" message="Response: ${body}"/>
+            <log id="xdjc-log-response" loggingLevel="INFO" message="Outbound: ${body}"/>
         </route>
 
     </camelContext>
