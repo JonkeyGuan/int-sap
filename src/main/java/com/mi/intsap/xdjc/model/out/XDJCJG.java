@@ -22,7 +22,7 @@ public class XDJCJG {
     private String jiaoHuoDan;
     private String gongChang;
     private String xinDaiJianChaJieGuo;
-    private int xinDaiChaoEr;
+    private String xinDaiChaoEr;
     private String huoBi;
     private String gengXinRiQi;
     private String gengXinShiJian;
